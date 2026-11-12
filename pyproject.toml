@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fleet-mcp-server"
+version = "0.1.0"
+description = "MCP server that lets an AI assistant answer fleet telematics questions (trips, idling, faults, driver safety)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["mcp>=2,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+fleet-mcp = "fleet_mcp.server:main"
+fleet-mcp-seed = "fleet_mcp.data:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fleet_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
